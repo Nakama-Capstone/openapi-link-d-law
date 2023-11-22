@@ -1,0 +1,97 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Link D Law",
+        "version": "1.0",
+        "description": "OpenAPI for Link D Law",
+        "contact": {
+            "email": "nakamacapstone@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "description": "Link D Law RESTful API Server",
+            "url": "http://{environtment}/",
+            "variables": {
+                "environtment": {
+                    "description": "Server Environtment",
+                    "default": "localhost:8000",
+                    "enum": [
+                        "localhost:8000",
+                        "link-d-law.com"
+                    ]
+                }
+            }
+        }  
+    ],
+    "externalDocs": {
+        "description": "Word Docs",
+        "url": "https://drive.google.com/drive/folders/0ALMAl_AcL8xoUk9PVA"
+    },
+    "paths": {
+        "/login": {
+            "post": {
+                "summary": "Login to Apps",
+                "description": "Login to Apps",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "minLength": 10,
+                                        "required": true
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "summary": "Register to Apps",
+                "description": "Melakukan pendaftaran ke aplikasi",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "required": true
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "minLength": 10,
+                                        "required": true
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "required": true
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/home": {
+            "get": {}
+        }
+    }
+}
