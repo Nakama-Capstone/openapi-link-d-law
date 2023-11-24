@@ -32,24 +32,34 @@
         "/login": {
             "post": {
                 "summary": "Login to Apps",
-                "description": "Login to Apps",
+                "description": "Login ke aplikasi",
+                "tags": ["Authentication"],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "email": {
-                                        "type": "string",
-                                        "minLength": 10,
-                                        "required": true
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "minLength": 8,
-                                        "required": true
+                                "$ref": "#/components/schemas/login"
+                            },
+                            "examples": {
+                                "user": {
+                                    "description": "Example user login",
+                                    "value": {
+                                        "email": "user@mail.com",
+                                        "password": "password"
                                     }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil login ke aplikasi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseSchemasLogin"
                                 }
                             }
                         }
@@ -61,28 +71,71 @@
             "post": {
                 "summary": "Register to Apps",
                 "description": "Melakukan pendaftaran ke aplikasi",
+                "tags": ["Authentication"],
                 "requestBody": {
                     "required": true,
                     "content": {
                         "application/json": {
                             "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "minLength": 1,
-                                        "required": true
-                                    },
-                                    "email": {
-                                        "type": "string",
-                                        "minLength": 10,
-                                        "required": true
-                                    },
-                                    "password": {
-                                        "type": "string",
-                                        "minLength": 8,
-                                        "required": true
+                                "$ref": "#/components/schemas/register"
+                            },
+                            "examples": {
+                                "user": {
+                                    "description": "Example user register",
+                                    "value": {
+                                        "name": "user",
+                                        "email": "user@mail.com",
+                                        "password": "password"
                                     }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "berhasil mendaftar pada aplikasi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseSchemasRegister"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/logout": {
+            "post": {
+                "summary": "Logout from Apps",
+                "description": "Logout dari aplikasi",
+                "tags": ["Authentication"],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/logout"
+                            },
+                            "examples": {
+                                "user": {
+                                    "description": "Example user logout",
+                                    "value": {
+                                        "status": "logout"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Berhasil logout dari aplikasi aplikasi",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/responseSchemasLogout"
                                 }
                             }
                         }
@@ -92,6 +145,145 @@
         },
         "/home": {
             "get": {}
+        },
+        "/laws": {
+            "get": {
+                "tags": ["Law"]
+            }
+        },
+        "/laws/{law}": {
+            "get": {
+                "tags": ["Law"]
+            }
+        },
+        "/laws/{law}/{pasal}": {
+            "get": {
+                "tags": ["Law"]
+            }
+        },
+        "/chats": {
+            "get": {
+                "tags": ["Chat"]
+            }
+        },
+        "/chats/{id}": {
+            "get": {
+                "tags": ["Chat"]
+            },
+            "post": {
+                "tags": ["Chat"]
+            }
+        },
+        "/lawyers": {
+            "get": {
+                "tags": ["Lawyer"]
+            }
+        },
+        "/lawyers/{id}": {
+            "get": {
+                "tags": ["Lawyer"]
+            }
+        },
+        "/profile": {
+            "get": {
+                "tags": ["Profile"]
+            },
+            "post": {
+                "tags": ["Profile"]
+            }
+        },
+        "/mainFitur": {
+            "get": {
+                "tags": ["Main"]
+            },
+            "post": {
+                "tags": ["Main"]
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "login": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "minLength": 10,
+                        "required": true
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 8,
+                        "required": true
+                    }
+                }
+            },
+            "register": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "minLength": 1,
+                        "required": true
+                    },
+                    "email": {
+                        "type": "string",
+                        "minLength": 10,
+                        "required": true
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 8,
+                        "required": true
+                    }
+                }
+            },
+            "logout": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "string",
+                        "minLength": 10,
+                        "required": true
+                    }
+                }
+            },
+            "responseSchemasLogin": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "responseSchemasRegister": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "boolean"
+                    }
+                }
+            },
+            "responseSchemasLogout": {
+                "type": "object",
+                "properties": {
+                    "message": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "type": "boolean"
+                    }
+                }
+            }
+        },
+        "responses": {
+
         }
     }
 }
